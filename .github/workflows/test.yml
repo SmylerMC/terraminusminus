@@ -1,8 +1,9 @@
-name: Publish snapshot build
+name: Run tests
 on:
   - push
+  - pull_request
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,8 +14,5 @@ jobs:
           java-version: "17"
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Publish with Gradle
-        run: ./gradlew build publish
-        env:
-          MAVEN_NAME: ${{ secrets.MAVEN_NAME }}
-          MAVEN_SECRET: ${{ secrets.MAVEN_SECRET }}
+      - name: Build with Gradle
+        run: ./gradlew test
