@@ -83,7 +83,7 @@ dependencies {
     implementation "com.google.guava:guava:33.4.8-jre"
     implementation "io.netty:netty-all:4.1.123.Final"
     implementation "org.apache.logging.log4j:log4j-api:2.25.1"
-    implementation "org.apache.logging.log4j:log4j-core:2.25.1"
+    testImplementation "org.apache.logging.log4j:log4j-core:2.25.1"
 
 }
 
