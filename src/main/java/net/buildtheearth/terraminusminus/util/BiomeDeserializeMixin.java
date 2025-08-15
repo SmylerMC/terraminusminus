@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 
 import lombok.NonNull;
 import net.buildtheearth.terraminusminus.substitutes.Biome;
+import net.buildtheearth.terraminusminus.substitutes.Identifier;
 
 /**
  * @author DaPorkchop_
@@ -16,7 +17,7 @@ public abstract class BiomeDeserializeMixin {
     protected static class Converter extends StdConverter<String, Biome> {
         @Override
         public Biome convert(@NonNull String value) {
-            Biome biome = Biome.byId(value);
+            Biome biome = Biome.byId(new Identifier(value));
             checkArg(biome != null, "unknown biome id: %s", value);
             return biome;
         }

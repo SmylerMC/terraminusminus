@@ -56,7 +56,7 @@ public class CachedChunkData extends CustomAttributeContainer {
     private final int[] groundHeight;
 
     @Getter
-    private final byte[] biomes;
+    private final Biome[] biomes;
 
     private final ImmutableCompactArray<BlockState> surfaceBlocks;
 
@@ -99,9 +99,9 @@ public class CachedChunkData extends CustomAttributeContainer {
             }
         }
 
-        this.biomes = new byte[16 * 16];
+        this.biomes = new Biome[16 * 16];
         for (int i = 0; i < 16 * 16; i++) {
-            this.biomes[i] = (byte) PorkUtil.fallbackIfNull(builder.biomes[i], Biome.DEEP_OCEAN).numericId;
+            this.biomes[i] = PorkUtil.fallbackIfNull(builder.biomes[i], Biome.DEEP_OCEAN);
         }
 
         this.surfaceBlocks = new ImmutableCompactArray<>(builder.surfaceBlocks);
@@ -148,7 +148,7 @@ public class CachedChunkData extends CustomAttributeContainer {
         return this.surfaceBlocks.get(x * 16 + z);
     }
 
-    public int biome(int x, int z) {
+    public Biome biome(int x, int z) {
         return this.biomes[z * 16 + x];
     }
 

@@ -62,11 +62,11 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 2: //Rock
                 return Biome.DESERT; //cant find it (rock mountians)
             case 3: //Ice
-                return Biome.ICE_MOUNTAINS;
+                return Biome.FROZEN_PEAKS;
             case 5:
             case 6:
             case 7: //Permafrost
-                return Biome.ICE_PLAINS;
+                return Biome.SNOWY_PLAINS;
             case 10:
                 return Biome.JUNGLE;
             case 11:
@@ -74,9 +74,9 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
                 return Biome.PLAINS;
             case 15:
                 if (temperature < 5) {
-                    return Biome.COLD_TAIGA;
+                    return Biome.SNOWY_TAIGA;
                 } else if (temperature > 15) {
-                    return Biome.SWAMPLAND;
+                    return Biome.SWAMP;
                 }
                 return Biome.FOREST;
             case 16:
@@ -85,12 +85,12 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 19:
                 if (temperature < 15) {
                     if (temperature < 0) {
-                        return Biome.COLD_TAIGA;
+                        return Biome.SNOWY_TAIGA;
                     }
-                    return Biome.SWAMPLAND;
+                    return Biome.SWAMP;
                 }
                 if (temperature > 20) {
-                    return Biome.SWAMPLAND;
+                    return Biome.SWAMP;
                 }
                 return Biome.FOREST;
             case 29:
@@ -108,7 +108,7 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 45:
                 return Biome.PLAINS;
             case 50:
-                return Biome.COLD_TAIGA;
+                return Biome.SNOWY_TAIGA;
             case 51: //salt flats always desert
                 return Biome.DESERT;
             case 52:
@@ -116,13 +116,13 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 55:
             case 99: //hot and dry
                 if (temperature < 2) {
-                    return Biome.COLD_TAIGA;
+                    return Biome.SNOWY_TAIGA;
                 } else if (temperature < 5) {
                     return Biome.TAIGA;
                 } else if (precipitation < 5) {
                     return Biome.DESERT;
                 }
-                return Biome.MESA; //TODO: this soil can also be desert i.e. saudi Arabia (base on percip?)
+                return Biome.BADLANDS; //TODO: this soil can also be desert i.e. saudi Arabia (base on percip?)
             case 54:
             case 56:
                 return Biome.SAVANNA;
@@ -149,7 +149,7 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 80:
             case 95:
             case 98:
-                return Biome.SWAMPLAND;
+                return Biome.SWAMP;
             case 81:
             case 83:
             case 84:
