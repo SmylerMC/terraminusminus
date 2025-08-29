@@ -5,7 +5,7 @@ allprojects {
 
     compileJava {
         sourceCompatibility = "8"
-        targetCompatibility = "24"
+        targetCompatibility = "21"
     }
 
     var git_tag = 'git describe --tags --exact-match'.execute().text.trim().replace('/', '-')
