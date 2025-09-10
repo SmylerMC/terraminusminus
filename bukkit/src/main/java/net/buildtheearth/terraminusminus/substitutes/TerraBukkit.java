@@ -171,8 +171,8 @@ public final class TerraBukkit {
         BiomeImplementation implementation = null;
         if (biome instanceof BiomeImplementation) {
             implementation = (BiomeImplementation) biome;
-            if (implementation.bukkitBiome instanceof org.bukkit.block.Biome) {
-                return (org.bukkit.block.Biome) implementation.bukkitBiome;
+            if (implementation.platformBiome instanceof org.bukkit.block.Biome) {
+                return (org.bukkit.block.Biome) implementation.platformBiome;
             }
         }
         org.bukkit.block.Biome bukkitBiome = Registry.BIOME.get(toBukkitNamespacedKey(biome.identifier()));
@@ -182,7 +182,7 @@ public final class TerraBukkit {
             );
         }
         if (implementation != null) {
-            implementation.bukkitBiome = bukkitBiome;
+            implementation.platformBiome = bukkitBiome;
         }
         return bukkitBiome;
     }
