@@ -36,6 +36,11 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
+/**
+ * Based on <a href="https://raw.githubusercontent.com/BuildTheEarth/terraplusplus/refs/heads/master/src/main/java/net/buildtheearth/terraplusplus/generator/biome/UserOverrideBiomeFilter.java">UserOverrideBiomeFilter.java @author DaPorkchop_</a>
+ *
+ * @author DavixDevelop
+ */
 public class UserOverrideBiomeFilter implements IEarthBiomeFilter<UserOverrideBiomeFilter.BiomeBoundingBox> {
     protected final BVH<BiomeBoundingBox> bvh;
 
