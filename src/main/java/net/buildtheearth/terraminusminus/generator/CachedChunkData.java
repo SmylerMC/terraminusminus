@@ -147,6 +147,24 @@ public class CachedChunkData extends CustomAttributeContainer {
     }
 
     /**
+     * Provides access to the Y coordinate of the lower vertical 16 blocks segment that intersects with the surface.
+     *
+     * @return the minimum cube surface Y
+     */
+    private int surfaceMinCube() {
+        return this.surfaceMinCube;
+    }
+
+    /**
+     * Provides access to the Y coordinate of the highest vertical 16 blocks segment that intersects with the surface.
+     *
+     * @return the maximum cube surface Y
+     */
+    private int surfaceMaxCube() {
+        return this.surfaceMaxCube;
+    }
+
+    /**
      * Builder class for {@link CachedChunkData}.
      *
      * @author DaPorkchop_
