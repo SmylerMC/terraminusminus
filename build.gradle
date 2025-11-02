@@ -66,6 +66,7 @@ allprojects {
 
     test {
         useJUnitPlatform()
+        systemProperty "log4j.configurationFile", "log4j2.xml"
         testLogging {
             events "passed", "skipped", "failed"
         }
