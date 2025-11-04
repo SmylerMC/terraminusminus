@@ -23,6 +23,11 @@ public class ChunkDataLoader extends CacheLoader<ChunkPos, CompletableFuture<Cac
 		this.bakers = EarthGeneratorPipelines.dataBakers(settings);
 	}
 
+    public ChunkDataLoader(@NonNull GeneratorDatasets datasets, @NonNull IEarthDataBaker<?>[] bakers) {
+        this.datasets = datasets;
+        this.bakers = bakers;
+    }
+
 	@Override
 	public CompletableFuture<CachedChunkData> load(@NonNull ChunkPos pos) {
 		return IEarthAsyncPipelineStep.getFuture(pos, this.datasets, this.bakers, CachedChunkData::builder);
