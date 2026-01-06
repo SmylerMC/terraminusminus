@@ -28,6 +28,17 @@ public class EarthBiomeProvider {
     }
 
     /**
+     * Construct a biome provider that uses custom biome filters which use custom datasets to provide the biomes per chunk
+     * @param datasets Datasets that the EarthBiomeProvider should use to retreat data
+     * @param filters Biome filters which get executed for each chunk
+     */
+    public EarthBiomeProvider(@NonNull GeneratorDatasets datasets, @NonNull IEarthBiomeFilter<?>[] filters) {
+        this.cache = CacheBuilder.newBuilder()
+                .weakValues()
+                .build(new ChunkDataLoader(datasets, filters));
+    }
+
+    /**
      * @deprecated this method is blocking, use {@link #getBiomesForChunkAsync(ChunkPos)}
      */
     @Deprecated
@@ -132,6 +143,16 @@ public class EarthBiomeProvider {
         public ChunkDataLoader(@NonNull EarthGeneratorSettings settings) {
             this.datasets = settings.datasets();
             this.filters = EarthGeneratorPipelines.biomeFilters(settings);
+        }
+
+        /**
+         * Construct a ChunkDataLoader that uses custom biome filters which use custom datasets to provide the biomes per chunk
+         * @param datasets Datasets that the ChunkDataLoader should use to retreat data
+         * @param filters Biome filters which get executed for each chunk
+         */
+        public ChunkDataLoader(@NonNull GeneratorDatasets datasets, @NonNull IEarthBiomeFilter<?>[] filters) {
+            this.datasets = datasets;
+            this.filters = filters;
         }
 
         @Override

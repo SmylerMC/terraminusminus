@@ -5,6 +5,8 @@ import lombok.NonNull;
 import net.buildtheearth.terraminusminus.projection.GeographicProjection;
 import net.buildtheearth.terraminusminus.util.CustomAttributeContainer;
 
+import java.util.Map;
+
 /**
  * Wrapper class which contains all of the datasets used for generation.
  *
@@ -18,5 +20,15 @@ public class GeneratorDatasets extends CustomAttributeContainer {
         super(EarthGeneratorPipelines.datasets(settings));
 
         this.projection = settings.projection();
+    }
+
+    /**
+     * Constructs GeneratorDatasets based on a custom map of datasets and provided GeographicProjection
+     * @param datasets The custom datasets that the GeneratorDatasets hold
+     * @param projection The geographic projection that the GeneratorDatasets returns data in
+     */
+    public GeneratorDatasets(@NonNull Map<String, Object> datasets, @NonNull GeographicProjection projection) {
+        super(datasets);
+        this.projection = projection;
     }
 }
