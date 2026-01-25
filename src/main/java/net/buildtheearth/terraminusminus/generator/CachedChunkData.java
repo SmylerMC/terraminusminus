@@ -151,7 +151,7 @@ public class CachedChunkData extends CustomAttributeContainer {
      *
      * @return the minimum cube surface Y
      */
-    private int surfaceMinCube() {
+    public int surfaceMinCube() {
         return this.surfaceMinCube;
     }
 
@@ -160,7 +160,7 @@ public class CachedChunkData extends CustomAttributeContainer {
      *
      * @return the maximum cube surface Y
      */
-    private int surfaceMaxCube() {
+    public int surfaceMaxCube() {
         return this.surfaceMaxCube;
     }
 
