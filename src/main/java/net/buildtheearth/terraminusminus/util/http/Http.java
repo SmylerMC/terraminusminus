@@ -129,6 +129,9 @@ public class Http {
             ByteBuf cachedData;
             HttpHeaders nextHeaders = EmptyHttpHeaders.INSTANCE;
 
+            int retryCount = 0;
+            private static final int MAX_RETRIES = 10;
+
             @Override
             public synchronized boolean isCancelled() {
                 return future.isDone();
@@ -214,14 +217,28 @@ public class Http {
                     //if cacheEntry is non-null, it means we're currently attempting to refresh a stale entry
 
                     if (throwable != null) {
+                        // Check if it's a transient network error that we should retry
+                        if (this.isRetryableError(throwable) && this.retryCount < MAX_RETRIES) {
+                            this.retryCount++;
+                            if (!TerraConfig.reducedConsoleMessages) {
+                                TerraMinusMinus.LOGGER.warn("Transient network error ({}), retrying (attempt {}/{}): {}",
+                                    throwable.getClass().getSimpleName(), this.retryCount, MAX_RETRIES, this.parsed);
+                            }
+                            // Retry the request
+                            managerFor(this.parsed).submit(this.parsed.getFile(), this, this.nextHeaders);
+                            return;
+                        }
+
                         if (this.cacheEntry != null) { //fall back to stale cache data
                             if (!TerraConfig.reducedConsoleMessages) {
-                                TerraMinusMinus.LOGGER.warn("Refresh failed, falling back to stale data in cache: {}", this.parsed);
+                                TerraMinusMinus.LOGGER.warn("Request failed{}, falling back to stale data in cache: {}",
+                                    this.retryCount > 0 ? " after " + this.retryCount + " retries" : "", this.parsed);
                             }
                             this.handleCacheEntry(this.cacheEntry, this.cachedData);
                         } else {
                             if (!TerraConfig.reducedConsoleMessages) {
-                                TerraMinusMinus.LOGGER.warn("Request failed: {}", this.parsed);
+                                TerraMinusMinus.LOGGER.warn("Request failed{}: {}",
+                                    this.retryCount > 0 ? " after " + this.retryCount + " retries" : "", this.parsed);
                             }
                             future.completeExceptionally(throwable);
                         }
@@ -269,6 +286,40 @@ public class Http {
                 } finally {
                     this.releaseCacheEntry();
                 }
+            }
+
+            /**
+             * Determines if the given exception is a transient network error that should be retried.
+             *
+             * @param throwable the exception that occurred
+             * @return true if the error is retryable
+             */
+            private boolean isRetryableError(Throwable throwable) {
+                String className = throwable.getClass().getSimpleName();
+                String message = throwable.getMessage();
+
+                // Check for "Connection reset by peer" and similar connection-related errors
+                if (className.contains("NativeIoException")) {
+                    return true;
+                }
+
+                // Check for timeout-related errors
+                if (className.contains("TimeoutException") || className.contains("ReadTimeoutException") ||
+                    className.contains("WriteTimeoutException")) {
+                    return true;
+                }
+
+                // Check for other transient connection errors
+                if (className.contains("ClosedChannelException") || className.contains("ConnectException")) {
+                    return true;
+                }
+
+                // Unwrap CompletionException to check the cause
+                if (throwable instanceof java.util.concurrent.CompletionException && throwable.getCause() != null) {
+                    return isRetryableError(throwable.getCause());
+                }
+
+                return false;
             }
 
             synchronized void step(@NonNull String url) {
