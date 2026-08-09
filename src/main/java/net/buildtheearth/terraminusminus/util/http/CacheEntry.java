@@ -104,6 +104,10 @@ public class CacheEntry {
                     this.status = STATUS_NOT_FOUND;
                     break;
                 }
+                if (response.status().code() == 401 || response.status().code() == 403) { //Access unauthorized or rejected
+                    this.status = STATUS_NOT_FOUND;
+                    break;
+                }
             default: //failure
                 throw new UnknownHttpStatusException(response.status(), parsed);
         }
