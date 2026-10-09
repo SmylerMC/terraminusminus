@@ -242,13 +242,19 @@ public final class BuildingShellDataset {
         return new BuildingShellBounds(minLon, minLat, 0.0d, maxLon, maxLat, 0.0d);
     }
 
+    private static final double METERS_PER_DEGREE_LAT = 111_000.0d;
+    private static final double MIN_COS_LATITUDE = 1.0e-12d;
+
     private static QueryBuildingShellBounds createRadiusBuildingShellBounds(double lon, double lat, double radius) {
-        double latDelta = radius / 111_000.0d;
-        double lonDelta = radius / (111_000.0d * Math.cos(Math.toRadians(lat)));
+        if (radius < 0.0d) {
+            throw new IllegalArgumentException("radius must be non-negative: " + radius);
+        }
+
+        double latDelta = radius / METERS_PER_DEGREE_LAT;
+        double cosLat = Math.max(Math.abs(Math.cos(Math.toRadians(lat))), MIN_COS_LATITUDE);
+        double lonDelta = radius / (METERS_PER_DEGREE_LAT * cosLat);
         return new QueryBuildingShellBounds(lon - lonDelta, lat - latDelta, lon + lonDelta, lat + latDelta);
     }
-
-
 
     private static final class TileInfo {
         private final String name;

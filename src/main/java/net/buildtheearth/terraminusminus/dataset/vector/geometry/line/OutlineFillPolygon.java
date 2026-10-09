@@ -1,5 +1,13 @@
 package net.buildtheearth.terraminusminus.dataset.vector.geometry.line;
 
+import static net.daporkchop.lib.common.math.PMath.clamp;
+import static net.daporkchop.lib.common.math.PMath.floorI;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 import lombok.NonNull;
 import net.buildtheearth.terraminusminus.TerraConstants;
 import net.buildtheearth.terraminusminus.dataset.geojson.geometry.LineString;
@@ -14,14 +22,6 @@ import net.buildtheearth.terraminusminus.substitutes.ChunkPos;
 import net.buildtheearth.terraminusminus.util.bvh.Bounds2d;
 import net.buildtheearth.terraminusminus.util.interval.IntervalTree;
 import net.daporkchop.lib.common.math.PMath;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static net.daporkchop.lib.common.math.PMath.clamp;
-import static net.daporkchop.lib.common.math.PMath.floorI;
 
 /**
  * @author Cinnazeyy
@@ -94,7 +94,9 @@ public final class OutlineFillPolygon implements VectorGeometry {
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                if (!insideMask[x + 1][z + 1]) continue;
+                if (!insideMask[x + 1][z + 1]) {
+                    continue;
+                }
 
                 boolean isBoundary =
                         !insideMask[x][z + 1] ||
@@ -129,7 +131,9 @@ public final class OutlineFillPolygon implements VectorGeometry {
             }
 
             int size = segs.size();
-            if (size == 0) return TerraConstants.EMPTY_DOUBLE_ARRAY;
+            if (size == 0) {
+                return TerraConstants.EMPTY_DOUBLE_ARRAY;
+            }
             double[] arr = new double[size];
             int i = 0;
             for (Segment s : segs) {
