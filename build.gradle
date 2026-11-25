@@ -33,12 +33,12 @@ allprojects {
 
     dependencies {
         // Annotations
-        compileOnly "org.projectlombok:lombok:1.18.38"
-        annotationProcessor "org.projectlombok:lombok:1.18.38"
-        compileOnly 'org.jetbrains:annotations:26.0.2'
+        compileOnly "org.projectlombok:lombok:1.18.48"
+        annotationProcessor "org.projectlombok:lombok:1.18.48"
+        compileOnly 'org.jetbrains:annotations:26.1.0'
 
         // Tests
-        testImplementation(platform('org.junit:junit-bom:5.13.4'))
+        testImplementation(platform('org.junit:junit-bom:5.14.4'))
         testImplementation('org.junit.jupiter:junit-jupiter')
         testRuntimeOnly('org.junit.platform:junit-platform-launcher')
     }
@@ -80,11 +80,11 @@ dependencies {
     // Some dependencies are inherited from the top-level allprojects Gradle directive.
 
     implementation "org.apache.commons:commons-imaging:1.0.0-alpha5"
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.23.0'
     implementation("net.daporkchop.lib:binary:0.5.7-SNAPSHOT")  {
         exclude group: "io.netty"
     }
-    implementation "it.unimi.dsi:fastutil:8.5.16"
+    implementation "it.unimi.dsi:fastutil:8.5.19"
     implementation "com.google.code.gson:gson:2.11.0"
     implementation "com.google.guava:guava:33.3.1-jre"
     implementation "io.netty:netty-all:4.1.123.Final"
