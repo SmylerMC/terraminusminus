@@ -35,7 +35,7 @@ allprojects {
         // Annotations
         compileOnly "org.projectlombok:lombok:1.18.48"
         annotationProcessor "org.projectlombok:lombok:1.18.48"
-        compileOnly 'org.jetbrains:annotations:26.0.2'
+        compileOnly 'org.jetbrains:annotations:26.1.0'
 
         // Tests
         testImplementation(platform('org.junit:junit-bom:5.13.4'))
