@@ -85,7 +85,7 @@ dependencies {
         exclude group: "io.netty"
     }
     implementation "it.unimi.dsi:fastutil:8.5.19"
-    implementation "com.google.code.gson:gson:2.13.1"
+    implementation "com.google.code.gson:gson:2.15.0"
     implementation "com.google.guava:guava:33.4.8-jre"
     implementation "io.netty:netty-all:4.2.3.Final"
     implementation "org.apache.logging.log4j:log4j-api:2.25.1"
