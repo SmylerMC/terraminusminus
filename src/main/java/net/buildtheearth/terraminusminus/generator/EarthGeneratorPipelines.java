@@ -17,6 +17,7 @@ import net.buildtheearth.terraminusminus.dataset.vector.GeoJsonToVectorDataset;
 import net.buildtheearth.terraminusminus.dataset.vector.VectorTiledDataset;
 import net.buildtheearth.terraminusminus.generator.biome.IEarthBiomeFilter;
 import net.buildtheearth.terraminusminus.generator.biome.Terra121BiomeFilter;
+import net.buildtheearth.terraminusminus.generator.data.BuildingOutlineBaker;
 import net.buildtheearth.terraminusminus.generator.data.HeightsBaker;
 import net.buildtheearth.terraminusminus.generator.data.IEarthDataBaker;
 import net.buildtheearth.terraminusminus.generator.data.InitialBiomesBaker;
@@ -38,6 +39,7 @@ public class EarthGeneratorPipelines {
     public final String KEY_DATASET_TERRA121_SOIL = "terra121_soil";
     public final String KEY_DATASET_TERRA121_TEMPERATURE = "terra121_temperature";
     public final String KEY_DATASET_TREE_COVER = "tree_cover";
+    public final String KEY_DATASET_BUILDING_OUTLINES = "building_outlines";
 
     public final String KEY_DATA_TREE_COVER = "tree_cover";
 
@@ -68,6 +70,7 @@ public class EarthGeneratorPipelines {
             new TreeCoverBaker(),
             new HeightsBaker(),
             new OSMBaker(),
+            new BuildingOutlineBaker(KEY_DATASET_BUILDING_OUTLINES),
             new NullIslandBaker()
         };
     }
