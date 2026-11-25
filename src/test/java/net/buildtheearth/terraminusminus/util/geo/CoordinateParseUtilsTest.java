@@ -14,7 +14,7 @@ public class CoordinateParseUtilsTest extends TerraMinusMinusTest {
     private static final double PRECISION = 1e-7;
 
     @Test
-    void testValid() {
+    public void testValid() {
         // DMS format (degrees minutes seconds)
         this.testValidStringParsing("02°49'52\"N131°47'03\"E", 131.784167, 2.831111);
         this.testValidStringParsing("02°49'52''N 131°47'03''E", 131.784167, 2.831111);
